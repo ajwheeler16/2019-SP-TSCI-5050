@@ -57,39 +57,39 @@ set.alignment(row.names='right')
 .oldopt00 <- panderOptions('table.continues');
 panderOptions('table.continues','Data Dictionary (continued)');
 #  render the Data Dictionary table
-pander(dct0[,-1],row.names=dct0$column); 
+pander(dct0[,-1],row.names=dct0$column,split.tables=Inf); 
 #  reset this option to its previous value
 panderOptions('table.continues',.oldopt00);
-
+pander(cbind(table(dat0$soc.culture.result)),split.tables=Inf); 
 #' ### Select predictor and outcome variables (step 8)
 #' 
 #' Predictors
 # Uncomment the below line after putting in the actual predictor column names
 # from your dat0
-#predictorvars <- c('FOO','BAR','BAZ','BAT');
+predictorvars <- c('soc.culture.result','st131','st69');
 #' Outcomes
 # Uncomment the below line after putting in the actual outcome column names
 # from your dat0
-#outcomevars <- c('BAN','BAX');
+outcomevars <- c('overall.gleason');
 #' All analysis-ready variables
 # Uncomment the below line after predictorvars and outcomevars already exist
-#mainvars <- c(outcomevars, predictorvars);
+mainvars <- c(outcomevars, predictorvars);
 #' ### Scatterplot matrix (step 10)
 #' 
 #' To explore pairwise relationships between all variables of interest.
 # Uncomment the below after mainvars already exists and you have chosen a 
 # discrete variable to take the place of VAR1 (note that you don't quote that
 # one)
-#ggpairs(dat0[,mainvars],mapping=aes(color=VAR1));
+ggpairs(dat0[,mainvars],mapping=aes(color=soc.culture.result));
 #' ### Cohort Characterization (step 10)
 #' 
 #' To explore possible covariates
 # Uncomment the below code after mainvars exists and you have chosen a discrete
 # variable to take the place of VAR1 (this time you do quote it)
 #
-#pander(print(CreateTableOne(
-#  vars = setdiff(mainvars,'VAR1'),strata='VAR1',data = dat0
-#  , includeNA = T), printToggle=F), caption='Group Characterization');
+pander(print(CreateTableOne(
+  vars = setdiff(mainvars,'pathology.report.confirmed.inflammation'),strata='pathology.report.confirmed.inflammation',data = dat0
+  , includeNA = T), printToggle=F), caption='Group Characterization');
 
 #' ### Data Analysis
 #' 
